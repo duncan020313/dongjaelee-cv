@@ -1,0 +1,115 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[letterpaper,margin=0.7in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{array}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist[itemize]{leftmargin=1.1em, topsep=2pt, itemsep=2pt, parsep=0pt, partopsep=0pt}
+\setlength{\tabcolsep}{0pt}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{textgray}{HTML}{4A4A4A}
+
+\titleformat{\section}
+  {\large\bfseries\color{accent}}
+  {}
+  {0pt}
+  {}
+  [\vspace{2pt}\titlerule]
+
+\newcommand{\cvname}[1]{{\LARGE\bfseries #1}}
+\newcommand{\cvrole}[1]{{\large\color{textgray}#1}}
+\newcommand{\cvcontact}[1]{{\normalsize #1}}
+
+\newcommand{\cvitem}[4]{
+  \begin{tabularx}{\textwidth}{@{}X>{\raggedleft\arraybackslash}p{0.28\textwidth}@{}}
+    \textbf{#1} & \textbf{#2} \\
+    \textit{#3} & \textit{#4} \\
+  \end{tabularx}
+}
+
+\newcommand{\cvproject}[3]{
+  \begin{tabularx}{\textwidth}{@{}X>{\raggedleft\arraybackslash}p{0.28\textwidth}@{}}
+    \textbf{#1} & \textbf{#2} \\
+    \multicolumn{2}{@{}p{\textwidth}@{}}{#3} \\
+  \end{tabularx}
+}
+
+\newcommand{\cvpub}[5]{
+  \noindent\begin{tabularx}{\textwidth}{@{}>{\raggedleft\arraybackslash}p{1.4em}@{\hspace{0.6em}}X@{}}
+    #1. & \textbf{#2}\hfill \textbf{#3} \\
+       & #4 \\
+       & \begin{minipage}[t]{\linewidth}
+             \vspace{2pt}
+             \begin{itemize}
+               \item #5
+             \end{itemize}
+           \end{minipage}
+  \end{tabularx}
+}
+
+\newcommand{\cvaward}[4]{
+  \noindent\begin{tabularx}{\textwidth}{@{}p{1.1em}@{\hspace{0.4em}}X@{}}
+    \textbullet & \textbf{#1}\hfill \textbf{#2} \\
+                & \textit{#3}\hfill \textit{#4}
+  \end{tabularx}
+}
+
+\begin{document}
+
+\begin{center}
+  \cvname{Dongjae Lee} \\
+  \vspace{6pt}
+  \cvcontact{School of Computing, KAIST \textbar{} \href{mailto:dongjae.lee@prosys.kaist.ac.kr}{dongjae.lee@prosys.kaist.ac.kr} \textbar{} \href{https://duncan020313.github.io/blog/}{https://duncan020313.github.io/blog/}}
+\end{center}
+
+\section*{Research Interests}
+\begin{itemize}
+  \item Proof-carrying spec-driven development for autonomous coding agents.
+  \item Programming languages that combine natural and formal language for analyzable software development.
+  \item Security analysis and verification techniques for agentic software systems.
+\end{itemize}
+
+\section*{Publications}
+\cvpub{1}{Expecto: Extracting Formal Specifications from Natural Language Description for Trustworthy Oracles}{2026}{ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI), 2026}{\textbf{Dongjae Lee} and Kihong Heo.}
+
+\vspace{6pt}
+\cvpub{2}{VeriSafe Agent: Safeguarding Mobile GUI Agent via Logic-based Action Verification}{2025}{ACM International Conference on Mobile Computing and Networking (MobiCom), 2025}{Jungjae Lee*, \textbf{Dongjae Lee}*, Chihun Choi, Youngmin Im, Jaeyoung Wi, Kihong Heo, Sangeun Oh, Sunjae Lee, and Insik Shin (* equal contribution).}
+
+\vspace{6pt}
+\cvpub{3}{BugSynth: Automatic Synthesis of Realistic and Reliable Bug Benchmark}{2024}{Korea Software Congress (KSC), 2024}{Minsol Park, \textbf{Dongjae Lee}, and Kihong Heo.}
+
+\section*{Education}
+\cvitem{Ph.D. in School of Computing}{2026 -- Present}{KAIST}{Daejeon, South Korea}
+\vspace{6pt}
+\cvitem{M.S. in School of Computing, Master's Thesis Excellence Award}{2024 -- 2026}{KAIST}{Daejeon, South Korea}
+\vspace{6pt}
+\cvitem{B.S. in School of Computing, Summa Cum Laude}{2020 -- 2024}{KAIST, GPA: 4.03/4.3}{Daejeon, South Korea}
+
+\section*{Honors \& Awards}
+\cvaward{Winner, AI Champion Competition}{2025}{Minister of Science and ICT Award, Team autophone}{}
+\vspace{4pt}
+\cvaward{Outstanding Teaching Assistant}{2025}{CS424 Program Reasoning, Fall Semester}{}
+\vspace{4pt}
+\cvaward{Outstanding Presentation Paper Award}{2024}{Korea Software Congress (KSC), BugSynth}{}
+\vspace{4pt}
+\cvaward{Finalist, Global AI Idea Lab Contest}{2024}{CODEGATE 2024}{}
+\vspace{4pt}
+\cvaward{National Excellence Scholarship}{2023}{KAIST}{}
+\vspace{4pt}
+\cvaward{National Excellence Scholarship}{2022}{KAIST}{}
+\vspace{4pt}
+\cvaward{Dean's List}{2021}{College of Engineering, Fall Semester}{}
+\vspace{4pt}
+\cvaward{Dean's List}{2020}{School of Freshmen, Spring Semester}{}
+
+\end{document}
