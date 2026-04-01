@@ -16,3 +16,7 @@
 
 # Local build directory
 /build/
+
+
+# codex
+.codex

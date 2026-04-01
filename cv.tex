@@ -16,6 +16,25 @@
 \setlist[itemize]{leftmargin=1.1em, topsep=2pt, itemsep=2pt, parsep=0pt, partopsep=0pt}
 \setlength{\tabcolsep}{0pt}
 
+\newlength{\cvsectiontopsep}
+\newlength{\cvsectionbottomsep}
+\newlength{\cvheadersep}
+\setlength{\cvsectiontopsep}{12pt}
+\setlength{\cvsectionbottomsep}{6pt}
+\setlength{\cvheadersep}{6pt}
+
+\newenvironment{cventries}
+  {\begin{itemize}[leftmargin=0pt, label={}, topsep=0pt, itemsep=6pt, parsep=0pt, partopsep=0pt]}
+  {\end{itemize}}
+
+\newenvironment{cvawards}
+  {\begin{itemize}[leftmargin=0pt, label={}, topsep=0pt, itemsep=4pt, parsep=0pt, partopsep=0pt]}
+  {\end{itemize}}
+
+\newenvironment{cvpubpoints}
+  {\begin{itemize}[leftmargin=1.1em, topsep=2pt, itemsep=0pt, parsep=0pt, partopsep=0pt]}
+  {\end{itemize}}
+
 \definecolor{accent}{HTML}{1F4E79}
 \definecolor{textgray}{HTML}{4A4A4A}
 
@@ -24,41 +43,51 @@
   {}
   {0pt}
   {}
-  [\vspace{2pt}\titlerule]
+  [\titlerule]
+\titlespacing*{\section}{0pt}{\cvsectiontopsep}{\cvsectionbottomsep}
 
 \newcommand{\cvname}[1]{{\LARGE\bfseries #1}}
 \newcommand{\cvrole}[1]{{\large\color{textgray}#1}}
 \newcommand{\cvcontact}[1]{{\normalsize #1}}
+\newcommand{\cvheader}[2]{
+  \begin{center}
+    \cvname{#1}\\[\cvheadersep]
+    \cvcontact{#2}
+  \end{center}
+}
 
 \newcommand{\cvitem}[4]{
-  \begin{tabularx}{\textwidth}{@{}X>{\raggedleft\arraybackslash}p{0.28\textwidth}@{}}
+  \item
+  \begin{tabularx}{\linewidth}{@{}X>{\raggedleft\arraybackslash}p{0.28\linewidth}@{}}
     \textbf{#1} & \textbf{#2} \\
     \textit{#3} & \textit{#4} \\
   \end{tabularx}
 }
 
 \newcommand{\cvproject}[3]{
-  \begin{tabularx}{\textwidth}{@{}X>{\raggedleft\arraybackslash}p{0.28\textwidth}@{}}
+  \item
+  \begin{tabularx}{\linewidth}{@{}X>{\raggedleft\arraybackslash}p{0.28\linewidth}@{}}
     \textbf{#1} & \textbf{#2} \\
-    \multicolumn{2}{@{}p{\textwidth}@{}}{#3} \\
+    \multicolumn{2}{@{}p{\linewidth}@{}}{#3} \\
   \end{tabularx}
 }
 
 \newcommand{\cvpub}[5]{
-  \noindent\begin{tabularx}{\textwidth}{@{}>{\raggedleft\arraybackslash}p{1.4em}@{\hspace{0.6em}}X@{}}
+  \item
+  \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash}p{1.4em}@{\hspace{0.6em}}X@{}}
     #1. & \textbf{#2}\hfill \textbf{#3} \\
        & #4 \\
        & \begin{minipage}[t]{\linewidth}
-             \vspace{2pt}
-             \begin{itemize}
+             \begin{cvpubpoints}
                \item #5
-             \end{itemize}
+             \end{cvpubpoints}
            \end{minipage}
   \end{tabularx}
 }
 
 \newcommand{\cvaward}[4]{
-  \noindent\begin{tabularx}{\textwidth}{@{}p{1.1em}@{\hspace{0.4em}}X@{}}
+  \item
+  \begin{tabularx}{\linewidth}{@{}p{1.1em}@{\hspace{0.4em}}X@{}}
     \textbullet & \textbf{#1}\hfill \textbf{#2} \\
                 & \textit{#3}\hfill \textit{#4}
   \end{tabularx}
@@ -66,11 +95,7 @@
 
 \begin{document}
 
-\begin{center}
-  \cvname{Dongjae Lee} \\
-  \vspace{6pt}
-  \cvcontact{School of Computing, KAIST \textbar{} \href{mailto:dongjae.lee@prosys.kaist.ac.kr}{dongjae.lee@prosys.kaist.ac.kr} \textbar{} \href{https://duncan020313.github.io/blog/}{https://duncan020313.github.io/blog/}}
-\end{center}
+\cvheader{Dongjae Lee}{School of Computing, KAIST \textbar{} \href{mailto:dongjae.lee@prosys.kaist.ac.kr}{dongjae.lee@prosys.kaist.ac.kr} \textbar{} \href{https://duncan020313.github.io/blog/}{https://duncan020313.github.io/blog/}}
 
 \section*{Research Interests}
 \begin{itemize}
@@ -80,36 +105,29 @@
 \end{itemize}
 
 \section*{Publications}
-\cvpub{1}{Expecto: Extracting Formal Specifications from Natural Language Description for Trustworthy Oracles}{2026}{ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI), 2026}{\textbf{Dongjae Lee} and Kihong Heo.}
-
-\vspace{6pt}
-\cvpub{2}{VeriSafe Agent: Safeguarding Mobile GUI Agent via Logic-based Action Verification}{2025}{ACM International Conference on Mobile Computing and Networking (MobiCom), 2025}{Jungjae Lee*, \textbf{Dongjae Lee}*, Chihun Choi, Youngmin Im, Jaeyoung Wi, Kihong Heo, Sangeun Oh, Sunjae Lee, and Insik Shin (* equal contribution).}
-
-\vspace{6pt}
-\cvpub{3}{BugSynth: Automatic Synthesis of Realistic and Reliable Bug Benchmark}{2024}{Korea Software Congress (KSC), 2024}{Minsol Park, \textbf{Dongjae Lee}, and Kihong Heo.}
+\begin{cventries}
+  \cvpub{1}{Expecto: Extracting Formal Specifications from Natural Language Description for Trustworthy Oracles}{2026}{ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI), 2026}{\textbf{Dongjae Lee} and Kihong Heo.}
+  \cvpub{2}{VeriSafe Agent: Safeguarding Mobile GUI Agent via Logic-based Action Verification}{2025}{ACM International Conference on Mobile Computing and Networking (MobiCom), 2025}{Jungjae Lee*, \textbf{Dongjae Lee}*, Chihun Choi, Youngmin Im, Jaeyoung Wi, Kihong Heo, Sangeun Oh, Sunjae Lee, and Insik Shin (* equal contribution).}
+  \cvpub{3}{BugSynth: Automatic Synthesis of Realistic and Reliable Bug Benchmark}{2024}{Korea Software Congress (KSC), 2024}{Minsol Park, \textbf{Dongjae Lee}, and Kihong Heo.}
+\end{cventries}
 
 \section*{Education}
-\cvitem{Ph.D. in School of Computing}{2026 -- Present}{KAIST}{Daejeon, South Korea}
-\vspace{6pt}
-\cvitem{M.S. in School of Computing, Master's Thesis Excellence Award}{2024 -- 2026}{KAIST}{Daejeon, South Korea}
-\vspace{6pt}
-\cvitem{B.S. in School of Computing, Summa Cum Laude}{2020 -- 2024}{KAIST, GPA: 4.03/4.3}{Daejeon, South Korea}
+\begin{cventries}
+  \cvitem{Ph.D. in School of Computing}{2026 -- Present}{KAIST}{Daejeon, South Korea}
+  \cvitem{M.S. in School of Computing, Master's Thesis Excellence Award}{2024 -- 2026}{KAIST}{Daejeon, South Korea}
+  \cvitem{B.S. in School of Computing, Summa Cum Laude}{2020 -- 2024}{KAIST, GPA: 4.03/4.3}{Daejeon, South Korea}
+\end{cventries}
 
 \section*{Honors \& Awards}
-\cvaward{Winner, AI Champion Competition}{2025}{Minister of Science and ICT Award, Team autophone}{}
-\vspace{4pt}
-\cvaward{Outstanding Teaching Assistant}{2025}{CS424 Program Reasoning, Fall Semester}{}
-\vspace{4pt}
-\cvaward{Outstanding Presentation Paper Award}{2024}{Korea Software Congress (KSC), BugSynth}{}
-\vspace{4pt}
-\cvaward{Finalist, Global AI Idea Lab Contest}{2024}{CODEGATE 2024}{}
-\vspace{4pt}
-\cvaward{National Excellence Scholarship}{2023}{KAIST}{}
-\vspace{4pt}
-\cvaward{National Excellence Scholarship}{2022}{KAIST}{}
-\vspace{4pt}
-\cvaward{Dean's List}{2021}{College of Engineering, Fall Semester}{}
-\vspace{4pt}
-\cvaward{Dean's List}{2020}{School of Freshmen, Spring Semester}{}
+\begin{cvawards}
+  \cvaward{Winner, AI Champion Competition}{2025}{Minister of Science and ICT Award, Team autophone}{}
+  \cvaward{Outstanding Teaching Assistant}{2025}{CS424 Program Reasoning, Fall Semester}{}
+  \cvaward{Outstanding Presentation Paper Award}{2024}{Korea Software Congress (KSC), BugSynth}{}
+  \cvaward{Finalist, Global AI Idea Lab Contest}{2024}{CODEGATE 2024}{}
+  \cvaward{National Excellence Scholarship}{2023}{KAIST}{}
+  \cvaward{National Excellence Scholarship}{2022}{KAIST}{}
+  \cvaward{Dean's List}{2021}{College of Engineering, Fall Semester}{}
+  \cvaward{Dean's List}{2020}{School of Freshmen, Spring Semester}{}
+\end{cvawards}
 
 \end{document}
