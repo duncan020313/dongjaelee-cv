@@ -56,11 +56,14 @@
   \end{center}
 }
 
-\newcommand{\cvitem}[4]{
+\usepackage{xparse}
+
+\NewDocumentCommand{\cvitem}{m m m o m}{
   \item
   \begin{tabularx}{\linewidth}{@{}X>{\raggedleft\arraybackslash}p{0.28\linewidth}@{}}
     \textbf{#1} & \textbf{#2} \\
-    \textit{#3} & \textit{#4} \\
+    \textit{#3}%
+    \IfValueT{#4}{\\Advisor: #4} & \textit{#5} \\
   \end{tabularx}
 }
 
@@ -98,6 +101,7 @@
 \cvheader{Dongjae Lee}{School of Computing, KAIST \textbar{} \href{mailto:dongjae.lee00@kaist.ac.kr}{dongjae.lee00@kaist.ac.kr} \textbar{} \href{https://duncan020313.github.io/blog}{https://duncan020313.github.io/blog}}
 
 \section*{Research Interests}
+My research focus is on developing reliable programming systems by combining formal methods and agentic AI. Specifically, I am interested in the following research topics:
 \begin{itemize}
 	\item \textbf{Verified AI-Assisted Programming:} Developing a programming system that simultaneously generates code and formal proofs to enable safe and reliable automated software development.
 	\item \textbf{Easy-to-Use Specification Language:} Designing and implementing a specification language optimized for human readability and usability, facilitating the creation of formal specifications.
@@ -106,8 +110,8 @@
 
 \section*{Education}
 \begin{cventries}
-	\cvitem{Ph.D. in School of Computing}{2026 -- Present}{KAIST}{Daejeon, South Korea}
-	\cvitem{M.S. in School of Computing (Master's Thesis Excellence Award)}{2024 -- 2026}{KAIST}{Daejeon, South Korea}
+	\cvitem{Ph.D. in School of Computing}{2026 -- Present}{KAIST}[Prof. Kihong Heo]{Daejeon, South Korea}
+	\cvitem{M.S. in School of Computing (Master's Thesis Excellence Award)}{2024 -- 2026}{KAIST}[Prof. Kihong Heo]{Daejeon, South Korea}
 	\cvitem{B.S. in School of Computing (Summa Cum Laude)}{2020 -- 2024}{KAIST, GPA: 4.03/4.3}{Daejeon, South Korea}
 \end{cventries}
 
