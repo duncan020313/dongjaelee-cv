@@ -3,12 +3,13 @@
 \usepackage[letterpaper,margin=0.7in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[hidelinks]{hyperref}
+\usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{tabularx}
 \usepackage{xcolor}
 \usepackage{titlesec}
 \usepackage{array}
+\usepackage{fontawesome5}
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
@@ -31,12 +32,11 @@
   {\begin{itemize}[leftmargin=0pt, label={}, topsep=0pt, itemsep=4pt, parsep=0pt, partopsep=0pt]}
   {\end{itemize}}
 
-\newenvironment{cvpubpoints}
-  {\begin{itemize}[leftmargin=1.1em, topsep=2pt, itemsep=0pt, parsep=0pt, partopsep=0pt]}
-  {\end{itemize}}
-
 \definecolor{accent}{HTML}{1F4E79}
 \definecolor{textgray}{HTML}{4A4A4A}
+\hypersetup{colorlinks=true, allcolors=black}
+\newcommand{\cvlink}[2]{\href{#1}{#2\nobreak\hspace{0.3em}\raisebox{0.1ex}{\scriptsize\textcolor{textgray}{\faLink}}}}
+\newcommand{\cvemph}[1]{\textbf{#1}}
 
 \titleformat{\section}
   {\large\bfseries\color{accent}}
@@ -45,6 +45,13 @@
   {}
   [\titlerule]
 \titlespacing*{\section}{0pt}{\cvsectiontopsep}{\cvsectionbottomsep}
+
+\titleformat{\subsection}
+  {\normalsize\bfseries}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\subsection}{0pt}{13pt}{4pt}
 
 \newcommand{\cvname}[1]{{\LARGE\bfseries #1}}
 \newcommand{\cvrole}[1]{{\large\color{textgray}#1}}
@@ -58,12 +65,12 @@
 
 \usepackage{xparse}
 
-\NewDocumentCommand{\cvitem}{m m m o m}{
+\NewDocumentCommand{\cvitem}{m m m m o}{
   \item
   \begin{tabularx}{\linewidth}{@{}X>{\raggedleft\arraybackslash}p{0.28\linewidth}@{}}
     \textbf{#1} & \textbf{#2} \\
-    \textit{#3}%
-    \IfValueT{#4}{\\Advisor: #4} & \textit{#5} \\
+    \multicolumn{2}{@{}p{\linewidth}@{}}{\textit{#3, #4}} \\
+    \IfValueT{#5}{\multicolumn{2}{@{}p{\linewidth}@{}}{#5} \\}
   \end{tabularx}
 }
 
@@ -75,16 +82,21 @@
   \end{tabularx}
 }
 
+\NewDocumentCommand{\cvteaching}{m m o}{
+  \item
+  \begin{tabularx}{\linewidth}{@{}X>{\raggedleft\arraybackslash}p{0.28\linewidth}@{}}
+    \textbf{#1} & \textbf{#2} \\
+    \textit{Teaching Assistant} & \\
+    \IfValueT{#3}{\multicolumn{2}{@{}p{\linewidth}@{}}{#3} \\}
+  \end{tabularx}
+}
+
 \newcommand{\cvpub}[5]{
   \item
-  \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash}p{1.4em}@{\hspace{0.6em}}X@{}}
-    #1. & \textbf{#2}\hfill \textbf{#3} \\
-       & \begin{minipage}[t]{\linewidth}
-             \begin{cvpubpoints}
-               \item #5
-               \item #4
-             \end{cvpubpoints}
-           \end{minipage}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash}p{2.4em}@{\hspace{0.6em}}>{\raggedright\arraybackslash}X@{\hspace{0.75em}}>{\raggedleft\arraybackslash}p{0.10\linewidth}@{}}
+    [#1] & \textbf{#2} & \textbf{#3} \\[2pt]
+        & \multicolumn{2}{@{}>{\raggedright\arraybackslash}p{\dimexpr\linewidth-3em\relax}@{}}{#5} \\
+        & \multicolumn{2}{@{}>{\raggedright\arraybackslash}p{\dimexpr\linewidth-3em\relax}@{}}{\textit{#4}} \\
   \end{tabularx}
 }
 
@@ -98,38 +110,54 @@
 
 \begin{document}
 
-\cvheader{Dongjae Lee}{School of Computing, KAIST \textbar{} \href{mailto:dongjae.lee00@kaist.ac.kr}{dongjae.lee00@kaist.ac.kr} \textbar{} \href{https://scholar.google.de/citations?user=SdYMsSoAAAAJ\&hl=en}{Google Scholar} \textbar{} \href{https://duncan020313.github.io/blog}{https://duncan020313.github.io/blog}}
+\cvheader{Dongjae Lee}{School of Computing, KAIST \textbar{} \href{mailto:dongjae.lee00@kaist.ac.kr}{dongjae.lee00@kaist.ac.kr}\\
+	\href{https://duncan020313.github.io/blog}{Blog} \textbar{} \href{https://scholar.google.com/citations?user=SdYMsSoAAAAJ&hl=ko}{Google Scholar} \textbar{} \href{https://github.com/duncan020313}{GitHub}}
 
 \section*{Research Interests}
-My research focus is on developing reliable programming systems by combining programming language theory and agentic AI. Specifically, I am interested in the following research topics:
+My research focuses on building reliable programming systems by bridging formal methods and agentic AI:
 \begin{itemize}
-	\item \textbf{Verified AI Programming:} Research on developing reliable AI programming systems by combining AI programming with formal verification techniques to ensure correctness, enabling AI agents to generate not only implementations but also proofs of their correctness.
-	\item \textbf{Specification Language for Verified AI Programming:} In verified AI programming, writing specifications is a key bottleneck to ensuring correctness. This research focuses on developing specification languages that are both precise and easy to understand.
-	\item \textbf{Neuro-Symbolic Agent Safeguards:} Research on verifying the safety of AI agents' actions using formal verification techniques and building guardrails for AI agents based on these verifications.
+	\item \cvemph{Verified AI-Assisted Programming:} Building programming systems in which AI agents generate code together with formal proofs of correctness, enabling safe and reliable automated software development.
+	\item \cvemph{Specification Languages for Trustworthy Intent Formalization:} Developing specification languages that support stepwise translation from natural language to formal specifications, narrowing the gap between the two and making intent formalization trustworthy.
+	\item \cvemph{Neuro-Symbolic Agent Safeguards:} Preventing errors and unsafe actions in agentic workflows through runtime verification, ensuring the safety of AI agents.
 \end{itemize}
-
 \section*{Education}
 \begin{cventries}
-	\cvitem{Ph.D. in School of Computing}{2026 -- Present}{KAIST}[Prof. Kihong Heo]{Daejeon, South Korea}
-	\cvitem{M.S. in School of Computing (Master's Thesis Excellence Award)}{2024 -- 2026}{KAIST}[Prof. Kihong Heo]{Daejeon, South Korea}
-	\cvitem{B.S. in School of Computing (Summa Cum Laude)}{2020 -- 2024}{KAIST, GPA: 4.03/4.3}{Daejeon, South Korea}
+	\cvitem{Ph.D. in Computer Science}{2026--Present}{KAIST}{Daejeon, South Korea}[Advisor: Prof. Kihong Heo]
+	\cvitem{M.S. in Computer Science}{2024--2026}{KAIST}{Daejeon, South Korea}[Advisor: Prof. Kihong Heo]
+	\cvitem{B.S. in Computer Science}{2020--2024}{KAIST}{Daejeon, South Korea}[GPA: 4.03/4.3]
 \end{cventries}
 
 \section*{Publications}
+\subsection*{International}
 \begin{cventries}
-	\cvpub{1}{Expecto: Extracting Formal Specifications from Natural Language Description for Trustworthy Oracles}{2026}{ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI), 2026}{\textbf{Dongjae Lee} and Kihong Heo.}
-	\cvpub{2}{VeriSafe Agent: Safeguarding Mobile GUI Agent via Logic-based Action Verification}{2025}{ACM International Conference on Mobile Computing and Networking (MobiCom), 2025}{Jungjae Lee*, \textbf{Dongjae Lee*}, Chihun Choi, Youngmin Im, Jaeyoung Wi, Kihong Heo, Sangeun Oh, Sunjae Lee, and Insik Shin (*: equal contribution).}
-	\cvpub{3}{BugSynth: Automatic Synthesis of Realistic and Reliable Bug Benchmark}{2024}{Korea Software Congress (KSC), 2024}{Minsol Park, \textbf{Dongjae Lee}, and Kihong Heo.}
+	\cvpub{C1}{\cvlink{https://doi.org/10.1145/3808332}{Expecto: Extracting Formal Specifications from Natural Language Description for Trustworthy Oracles}}{2026}{ACM SIGPLAN Conference on Programming Language Design and Implementation~\textup{(PLDI)}}{\textbf{Dongjae Lee} and Kihong Heo}
+	\cvpub{C2}{\cvlink{https://doi.org/10.1145/3680207.3765248}{VeriSafe Agent: Safeguarding Mobile GUI Agent via Logic-Based Action Verification}}{2025}{ACM International Conference on Mobile Computing and Networking~\textup{(MobiCom)}}{Jungjae Lee\textsuperscript{*}, \textbf{Dongjae Lee}\textsuperscript{*}, Chihun Choi, Youngmin Im, Jaeyoung Wi, Kihong Heo, Sangeun Oh, Sunjae Lee, and Insik Shin {\small\color{textgray}(\textsuperscript{*}: equal contribution)}}
 \end{cventries}
+
+\subsection*{Domestic}
+\begin{cventries}
+	\cvpub{D1}{\cvlink{https://prosys.kaist.ac.kr/bugsynth/assets/pdf/bugsynth.pdf}{BugSynth: Automatic Synthesis of Realistic and Reliable Bug Benchmark}}{2024}{Korea Software Congress~\textup{(KSC)}}{Minsol Park, \textbf{Dongjae Lee}, and Kihong Heo}
+\end{cventries}
+
+\section*{Teaching}
+\begin{cventries}
+	\cvteaching{CS520: Theory of Programming Languages}{Fall 2026}
+	\cvteaching{CS424: Program Reasoning}{Fall 2025}
+	\cvteaching{CS524: Program Analysis}{Spring 2025}
+\end{cventries}
+
+\newpage
 
 \section*{Honors \& Awards}
 \begin{cvawards}
-	\cvaward{Grand Prize, AI Champion Competition}{2025}{Minister of Science and ICT Award, Team autophone}{}
-	\cvaward{Outstanding Teaching Assistant}{2025}{CS424 Program Reasoning, Fall Semester}{}
+	\cvaward{Master's Thesis Excellence Award}{2026}{KAIST}{}
+	\cvaward{Grand Prize (1st of 630 teams), AI Champion Competition}{2025}
+	{Team AutoPhone (mobile GUI agent).\newline
+		R\&D funding: up to KRW 3 billion (approx.\ USD 2 million).}{}
+	\cvaward{Outstanding Teaching Assistant}{2025}{KAIST, CS424: Program Reasoning, Fall Semester}{}
+	\cvaward{Summa Cum Laude}{2024}{KAIST, B.S. in Computer Science}{}
 	\cvaward{Outstanding Presentation Paper Award}{2024}{Korea Software Congress (KSC), BugSynth}{}
-	\cvaward{Finalist, Global AI Idea Lab Contest}{2024}{CODEGATE 2024}{}
-	\cvaward{National Excellence Scholarship}{2023}{KAIST}{}
-	\cvaward{National Excellence Scholarship}{2022}{KAIST}{}
+	\cvaward{National Excellence Scholarship}{2022--2023}{KAIST}{}
 	\cvaward{Dean's List}{2021}{College of Engineering, Fall Semester}{}
 	\cvaward{Dean's List}{2020}{School of Freshmen, Spring Semester}{}
 \end{cvawards}
